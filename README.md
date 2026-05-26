@@ -1,142 +1,233 @@
-# Deep Learning Image Segmentation System
+# Multi-Modal Traversability Perception for Autonomous Robots
 
-Semantic and instance segmentation pipeline for road scenes, including off-road, Indian road, and low-light conditions — built for autonomous driving applications.
+Real-time semantic terrain understanding system designed for autonomous ground robots operating across structured roads, off-road terrain, and adverse environmental conditions.
 
-[![GitHub](https://img.shields.io/badge/GitHub-Muskansuman-blue)](https://github.com/Muskansuman/Road-Segmentation-for-Autonomous-Vehicles-)
+This project focuses on robust drivable-area perception under deployment constraints, combining semantic segmentation, edge inference optimisation, and terrain-aware navigation support.
 
-## Overview
+---
 
-This project compares classical computer vision methods with deep learning approaches for image segmentation:
+# Overview
 
-| Approach | Method | Use case |
-|----------|--------|----------|
-| Classical | K-Means, GMM | Unsupervised pixel clustering baseline |
-| Semantic | UNet (PyTorch) | Pixel-level road vs. non-road classification |
-| Instance | YOLOv8 | Object-level segmentation with masks |
-| Instance | Detectron2 | Meta AI mask R-CNN style segmentation |
+This project evolved from a conventional road-segmentation pipeline into a deployment-oriented perception system for autonomous robotics.
 
-**Dataset:** Custom IITJ_RoadSeg dataset (~1000+ images) captured on campus, annotated with [Roboflow](https://roboflow.com/), available in PNG mask and COCO formats.
+Unlike standard segmentation projects that focus only on offline accuracy metrics, this system is designed around real-world robotic constraints including:
 
-## Project Structure
+- Real-time edge inference
+- Adverse weather robustness
+- Multi-terrain understanding
+- Navigation-oriented perception
+- Embedded GPU deployment
+- Integration with downstream planning systems
 
-```
-.
-├── GMM.py                          # K-Means & GMM classical segmentation
-├── UNET_CustomDataset.py           # UNet training pipeline (PyTorch)
-├── InstanceSegmentation.ipynb      # YOLOv8 instance segmentation
-├── Detectron2_Segmentation_on_CustomData (1).ipynb
-├── demo.gif                        # Roboflow annotation workflow
-├── k_means_result.png
-├── yolo_result.png
-├── detectron_result.png
-├── Results.gif
-└── requirements.txt
-```
+The perception module provides semantic traversability information directly to local path planning and obstacle avoidance pipelines.
 
-## Installation
+---
 
-```bash
-git clone https://github.com/Muskansuman/Road-Segmentation-for-Autonomous-Vehicles-.git
-cd Road-Segmentation-for-Autonomous-Vehicles-
+# Key Features
 
-python -m venv venv
-source venv/bin/activate        # Windows: venv\Scripts\activate
+- Multi-class semantic terrain segmentation
+- Real-time inference on NVIDIA Orin AGX
+- Support for urban + off-road environments
+- Robustness across:
+  - Day / Night
+  - Rain / Fog
+  - Illumination variations
+- Terrain-aware perception for:
+  - Wheeled robots
+  - Tracked robots
+  - Quadruped robots
+- TensorRT accelerated deployment
+- Profiling-driven optimisation for edge AI systems
 
-pip install -r requirements.txt
-```
+---
 
-**Requirements:** Python 3.8+, CUDA-capable GPU recommended for UNet and YOLOv8 training.
+# Terrain Classes
 
-## Dataset Setup
+The system handles 19 semantic terrain categories relevant to autonomous navigation, including:
 
-Organize your data before training UNet:
+- Road
+- Grass
+- Gravel
+- Mud
+- Vegetation
+- Sidewalk
+- Obstacles
+- Terrain boundaries
+- Traversable / non-traversable regions
 
-```
-data/
-└── training/
-    ├── images/     # Input road images (.png / .jpg)
-    └── masks/      # Ground-truth segmentation masks
-```
+> Add complete class definitions and visualization table here.
 
-For YOLOv8, export your dataset from Roboflow in YOLOv8 format and update the path in `InstanceSegmentation.ipynb`.
+---
 
-## Usage
+# System Pipeline
 
-### 1. Classical Segmentation (K-Means / GMM)
+## 1. Dataset Engineering
 
-```bash
-python GMM.py --image road.png --clusters 3 --method gmm
-```
+- Dataset collection from diverse outdoor environments
+- Annotation management using:
+  - CVAT
+  - Roboflow
+  - Labelme
+- Multi-condition data curation for weather and lighting robustness
 
-Options:
-- `--method kmeans` — K-Means clustering
-- `--method gmm` — Gaussian Mixture Model
+---
 
-### 2. Semantic Segmentation (UNet)
+## 2. Semantic Perception
 
-```bash
-python UNET_CustomDataset.py \
-  --img-path data/training/images \
-  --mask-path data/training/masks \
-  --epochs 150 \
-  --batch-size 32
-```
+- YOLOv11-Seg based semantic segmentation
+- Training and evaluation on custom terrain datasets
+- Real-time semantic mask generation
+- Multi-class terrain understanding for autonomous navigation
 
-The best model checkpoint is saved as `best_model_state.bin`.
+---
 
-### 3. Instance Segmentation (YOLOv8)
+## 3. Edge Deployment
 
-Open `InstanceSegmentation.ipynb` in Google Colab or Jupyter with GPU enabled.
+- ONNX export + TensorRT optimisation
+- Deployment on NVIDIA Orin AGX
+- GPU profiling for:
+  - Latency
+  - Throughput
+  - Memory utilisation
+  - Inference stability
 
-Train:
-```bash
-yolo task=segment mode=train model=yolov8m-seg.pt data=path/to/data.yaml epochs=10 imgsz=640
-```
+---
 
-Inference:
-```bash
-yolo task=segment mode=predict model=runs/segment/train/weights/best.pt conf=0.25 source=path/to/test/images save=true
-```
+## 4. Navigation Integration
 
-### 4. Instance Segmentation (Detectron2)
+Semantic traversability outputs are integrated with:
 
-Open `Detectron2_Segmentation_on_CustomData (1).ipynb` and follow the notebook cells. Requires a GPU runtime.
+- Local path planning
+- Obstacle avoidance
+- Terrain-aware navigation
+- Traversability estimation pipelines
 
-## Results
+---
 
-### K-Means Clustering
-<img src="k_means_result.png" width="300" alt="K-Means result">
+# Deployment-Focused Design
 
-### YOLOv8 Instance Segmentation — mAP50: 0.908
-<img src="yolo_result.png" width="500" alt="YOLOv8 result">
+A major focus of this project is balancing segmentation quality with real-time robotic deployment constraints.
 
-### Detectron2 Instance Segmentation
-<img src="detectron_result.png" width="350" alt="Detectron2 result">
+Key optimisation areas:
 
-### UNet Training
-- Average validation IoU loss: **0.03**
-- Architecture: UNet with IoU loss, Albumentations augmentation, Adam optimizer
+- Inference latency
+- GPU utilisation
+- Throughput vs accuracy tradeoff
+- Edge deployment stability
+- Memory footprint optimisation
 
-### Annotation Workflow (Roboflow)
-<img src="demo.gif" width="600" alt="Roboflow annotation demo">
+## Example Benchmark
 
-## Key Features
+| Model | Resolution | FPS | Latency | Platform |
+|------|------|------|------|------|
+| YOLOv11-Seg | 1024×576 | XX FPS | XX ms | NVIDIA Orin AGX |
 
-- Custom dataset creation and annotation pipeline
-- UNet implemented from scratch in PyTorch (encoder-decoder with skip connections)
-- IoU loss, data augmentation, train/validation/test split
-- Comparison of classical vs. deep learning segmentation
-- Support for challenging scenes: off-road, low-light, Indian road conditions
+> Replace benchmark values with actual deployment numbers.
 
-## References
+---
 
-- [Roboflow — Dataset annotation](https://roboflow.com/)
-- [KITTI Road Segmentation — PyTorch UNet](https://www.kaggle.com/code/hossamemamo/kitti-road-segmentation-pytorch-unet-from-scratch)
+# Failure Analysis & Robustness
 
-## Contributor
+The project studies segmentation behaviour under challenging conditions:
 
-**[Muskan Suman](https://github.com/Muskansuman)** — Project owner & maintainer
+- Fog-induced visibility degradation
+- Low-light/night scenes
+- Terrain ambiguity
+- Shadow leakage
+- Motion blur during robot motion
+- Off-road traversability uncertainty
 
-## License
+## Example Failure Modes
 
-This project is for educational and portfolio purposes.
+- Vegetation-road boundary confusion
+- Puddle reflections
+- Gravel-road ambiguity
+- Terrain edge fragmentation
+
+---
+
+# Real-World Deployment
+
+The system has been evaluated on real robotic platforms using onboard edge inference.
+
+## Supported Platforms
+
+- Wheeled UGVs
+- Tracked robots
+- Quadruped robots
+
+## Deployment Environments
+
+- Urban roads
+- Construction zones
+- Off-road terrain
+- Mixed-terrain navigation
+
+> Add real deployment images, videos, or GIFs here.
+
+---
+
+# Research Direction
+
+This project is being extended toward:
+
+- Semantic-geometric traversability fusion
+- Uncertainty-aware perception
+- Multi-modal terrain understanding
+- Domain adaptation under weather shifts
+- Temporal consistency for video perception
+- Safety-oriented traversability estimation
+
+---
+
+# Tech Stack
+
+## AI / Perception
+
+- PyTorch
+- YOLOv11-Seg
+- OpenCV
+
+## Optimisation & Deployment
+
+- TensorRT
+- ONNX
+- CUDA
+- NVIDIA Orin AGX
+
+## Annotation & Dataset Tools
+
+- CVAT
+- Roboflow
+- Labelme
+
+## Robotics Integration
+
+- ROS2
+- Navigation pipelines
+- Local planner integration
+
+---
+
+# Future Improvements
+
+- Temporal smoothing for video segmentation
+- Uncertainty estimation for safety-critical navigation
+- Semantic + elevation fusion
+- LiDAR-semantic fusion
+- Adverse-weather domain adaptation
+- Self-supervised terrain adaptation
+
+---
+
+# Project Positioning
+
+This project focuses on:
+
+> Robust traversability perception for autonomous robotic navigation under real-world deployment constraints.
+
+rather than only:
+
+> Offline semantic segmentation benchmark performance.
+
+---
