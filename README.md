@@ -281,7 +281,7 @@ Unlike isolated benchmark measurements, the reported throughput reflects full sy
 ### Day Conditions
 
 <p align="center">
-<img src="results/day_example.png" width="85%">
+<img src="results/qualitative/01.jpg" width="85%">
 </p>
 
 ---
@@ -293,20 +293,6 @@ Unlike isolated benchmark measurements, the reported throughput reflects full sy
 </p>
 
 ---
-
-### Smoke Conditions
-
-<p align="center">
-<img src="results/smoke_example.png" width="85%">
-</p>
-
----
-
-### Traversability Mapping
-
-<p align="center">
-<img src="results/traversability_example.png" width="85%">
-</p>
 
 ---
 
