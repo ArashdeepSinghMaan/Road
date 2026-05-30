@@ -283,14 +283,35 @@ Unlike isolated benchmark measurements, the reported throughput reflects full sy
 <p align="center">
 <img src="results/qualitative/01.jpg" width="85%">
 </p>
+<p align="center">
+<img src="results/qualitative/02.jpg" width="85%">
+</p>
+<p align="center">
+<img src="results/qualitative/03.jpg" width="85%">
+</p>
+<p align="center">
+<img src="results/qualitative/06.jpg" width="85%">
+</p>
+<p align="center">
+<img src="results/qualitative/07.jpg" width="85%">
+</p>
+<p align="center">
+<img src="results/qualitative/08.jpg" width="85%">
+</p>
+
+
 
 ---
 
 ### Night Conditions
 
 <p align="center">
-<img src="results/night_example.png" width="85%">
+<img src="results/qualitative/04.jpg" width="85%">
 </p>
+<p align="center">
+<img src="results/qualitative/05.jpg" width="85%">
+</p>
+
 
 ---
 
