@@ -417,11 +417,31 @@ Refer to the `docs/` directory.
 This project is released under the MIT License.
 
 ---
+# Contributors
 
-# Author
+## Muskan Suman
 
-**Arashdeep Singh**
+### Dataset Engineering & Model Development
 
-Robotics Engineer | Autonomous Systems | Perception & Navigation
+- Dataset collection and curation
+- Annotation workflow design
+- Dataset quality auditing and validation
+- Multi-label stratified dataset splitting
+- YOLO11m-Seg training and evaluation
+- Performance benchmarking and analysis
 
-Focused on developing deployable perception systems for autonomous ground and aerial robots.
+---
+
+## Arashdeep Singh
+
+### Deployment & System Integration
+
+- TensorRT optimization
+- Jetson AGX Orin deployment
+- ROS2 integration
+- Terrain Mapping Module (TMM) integration
+- Navigation stack integration
+- Real-time inference optimization
+- System-level validation and deployment testing
+
+
