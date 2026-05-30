@@ -302,7 +302,7 @@ Semantic understanding is converted into traversability information.
 # Confusion Matrix
 
 <p align="center">
-<img src="../results/quantitative/confusion_matrix.png" width="85%">
+<img src="../results/quantitative/confusion_matrix_normalized.png" width="85%">
 </p>
 
 ---
@@ -319,13 +319,6 @@ The confusion matrix helps identify:
 
 ---
 
-# Precision-Recall Analysis
-
-<p align="center">
-<img src="../results/quantitative/pr_curve.png" width="80%">
-</p>
-
----
 # Training Convergence
 
 <p align="center">
@@ -338,14 +331,14 @@ Training curves show stable convergence across box, segmentation, classification
 # Precision Recall Analysis
 
 <p align="center">
-<img src="../results/quantitative/PR_curve.png" width="90%">
+<img src="../results/quantitative/MaskPR_curve.png" width="90%">
 </p>
 
 ---
 # F1 Analysis
 
 <p align="center">
-<img src="../results/quantitative/F1_curve.png" width="90%">
+<img src="../results/quantitative/MaskF1_curve.png" width="90%">
 </p>
 
 ---
