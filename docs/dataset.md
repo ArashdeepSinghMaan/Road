@@ -158,7 +158,13 @@ These classes introduce elevated mobility risk.
 | Smoke |
 
 These classes impact mission safety and visibility.
+## Traversability Distribution
 
+<p align="center">
+<img src="../assets/dataset/traversability_distribution.png" width="70%">
+</p>
+
+The semantic classes are grouped into navigation-relevant traversability categories.
 ---
 
 # Data Collection Strategy
@@ -249,7 +255,79 @@ Auditing metrics include:
 * Dataset Entropy
 * Tail Class Ratio
 
+# Dataset Statistics
+
+## Dataset Summary
+
+| Metric | Value |
+|----------|----------|
+| Total Images | 131,909 |
+| Total Classes | 19 |
+| Dataset Health Score | 93.57 / 100 |
+| Coverage Score | 1.00 |
+| Entropy Score | 0.875 |
+| Balance Score | 0.952 |
+
+The dataset demonstrates strong class coverage, balanced semantic representation, and high diversity across operational environments.
+
+### Class Distribution
+
+<p align="center">
+<img src="../assets/dataset/class_distribution.png" width="85%">
+</p>
+
+The figure shows the instance frequency of all semantic classes in the dataset.
+
+### Pixel Distribution
+
+<p align="center">
+<img src="../assets/dataset/pixel_distribution.png" width="80%">
+</p>
+
+Pixel distribution provides a better estimate of visual dominance than instance counts alone.
+### Image Presence Distribution
+
+<p align="center">
+<img src="../assets/dataset/image_presence.png" width="85%">
+</p>
+
+Image presence indicates how frequently a semantic class appears throughout the dataset.
+### Class Area Distribution
+
+<p align="center">
+<img src="../assets/dataset/class_area_boxplot.png" width="90%">
+</p>
+
+Distribution of normalized polygon area for each semantic class.
+
+### Object Size Distribution
+
+<p align="center">
+<img src="../assets/dataset/object_size_distribution.png" width="85%">
+</p>
+
+Object size distribution helps identify classes dominated by small targets such as Fire, Pothole, and Puddle.
+
+### Class Co-Occurrence Analysis
+
+<p align="center">
+<img src="../assets/dataset/class_cooccurrence.png" width="95%">
+</p>
+
+The co-occurrence matrix highlights semantic relationships between terrain and hazard classes.
 ---
+# Dataset Insights
+
+### Key Observations
+
+- Dataset contains 131,909 annotated images.
+- All 19 semantic classes are represented.
+- Dataset Health Score is 93.57/100.
+- Road contributes approximately 19% of total annotated pixels.
+- Slushy contributes over 11% of total pixels despite appearing in fewer than 9% of images.
+- Fire appears in more than 16,000 annotated instances while occupying less than 1% of total pixels.
+- Smoke occupies significantly larger image regions than Fire.
+- No single class dominates the dataset, resulting in a high entropy score of 0.875.
 
 # Dataset Splitting Strategy
 
